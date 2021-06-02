@@ -155,7 +155,7 @@ void test_concat()
     ASSERT_EQ(right.to_string(), "|5 6|\n|7 8|\n");
 }
 
-void test_concat_on_wrong_dimesions()
+void test_concat_on_wrong_dimensions()
 {
     Matrix<int> left(2, 2);
     Matrix<int> right(3, 4);
@@ -172,7 +172,7 @@ int main()
     test_sum();
     test_sum_on_wrong_dimensions();
     test_concat();
-    test_concat_on_wrong_dimesions();
+    test_concat_on_wrong_dimensions();
 
     return 0;
 }
