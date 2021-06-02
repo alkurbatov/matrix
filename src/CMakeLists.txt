@@ -1,4 +1,5 @@
 set(SOURCES
+  Errors.h
   Matrix.h
   main.cpp
   )

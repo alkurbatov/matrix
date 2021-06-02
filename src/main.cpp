@@ -1,6 +1,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
+#include "Errors.h"
 #include "Matrix.h"
 
 void test_creation()
@@ -116,6 +117,21 @@ void test_sum()
     ASSERT_EQ(right.to_string(), "|5 6|\n|7 8|\n");
 }
 
+void test_sum_on_wrong_dimensions()
+{
+    Matrix<int> left1(2, 2);
+    Matrix<int> right1(3, 4);
+    EXPECT_THROW(left1 + right1, DimensionsDontMatch);
+
+    Matrix<int> left2(2, 2);
+    Matrix<int> right2(2, 4);
+    EXPECT_THROW(left2 + right2, DimensionsDontMatch);
+
+    Matrix<int> left3(3, 2);
+    Matrix<int> right3(4, 2);
+    EXPECT_THROW(left3 + right3, DimensionsDontMatch);
+}
+
 void test_concat()
 {
     Matrix<int> left(2, 2);
@@ -139,6 +155,13 @@ void test_concat()
     ASSERT_EQ(right.to_string(), "|5 6|\n|7 8|\n");
 }
 
+void test_concat_on_wrong_dimesions()
+{
+    Matrix<int> left(2, 2);
+    Matrix<int> right(3, 4);
+    EXPECT_THROW(left | right, DimensionsDontMatch);
+}
+
 int main()
 {
     test_creation();
@@ -147,7 +170,9 @@ int main()
     test_move();
     test_range_based_loop();
     test_sum();
+    test_sum_on_wrong_dimensions();
     test_concat();
+    test_concat_on_wrong_dimesions();
 
     return 0;
 }

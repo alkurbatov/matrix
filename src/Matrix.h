@@ -1,7 +1,11 @@
+#pragma once
+
 #include <algorithm>
 #include <string>
-#include <vector>
 #include <utility>
+#include <vector>
+
+#include "Errors.h"
 
 // NB (alkurbatov): A proxy class which only purpose is to provide additional operator[].
 // Shouldn't be used as a standalone entity.
@@ -102,6 +106,9 @@ struct Matrix
 
     Matrix<T> operator+(const Matrix<T>& src_) const
     {
+        if (m_cols != src_.m_cols || m_rows != src_.m_rows)
+            throw DimensionsDontMatch();
+
         Matrix<T> rv(*this);
 
         std::transform(rv.m_data.begin(), rv.m_data.end(), src_.m_data.begin(),
@@ -110,13 +117,15 @@ struct Matrix
         return rv;
     }
 
-    // NB (alkurbatov): Provides horizontal concatenation.
+    // NB (alkurbatov): Provides vertical concatenation.
     Matrix<T> operator|(const Matrix<T>& src_) const
     {
+        if (m_cols != src_.m_cols)
+            throw DimensionsDontMatch();
+
         Matrix<T> rv(*this);
 
         rv.m_rows += src_.m_rows;
-
         std::copy(src_.m_data.begin(), src_.m_data.end(), std::back_inserter(rv.m_data));
 
         return rv;
