@@ -77,8 +77,8 @@ void test_range_based_loop()
     matrix[1][0] = 3;
     matrix[1][1] = 4;
 
-    int i = 0;
-    int j = 0;
+    unsigned i = 0;
+    unsigned j = 0;
     for (auto val : matrix)
     {
         ASSERT_EQ(val, matrix[i][j]);
