@@ -4,7 +4,7 @@
 #include "Errors.h"
 #include "Matrix.h"
 
-void test_creation()
+TEST(Matrix, TestCreation)
 {
     Matrix<int> case1(3, 3);
     ASSERT_EQ(case1.to_string(), "|0 0 0|\n|0 0 0|\n|0 0 0|\n");
@@ -23,7 +23,7 @@ void test_creation()
     ASSERT_EQ(case5.to_string(), "|0|\n");
 }
 
-void test_get_set()
+TEST(Matrix, GetAndSet)
 {
     Matrix<int> case1(3, 3);
     ASSERT_EQ(case1[0][1], 0);
@@ -36,7 +36,7 @@ void test_get_set()
     ASSERT_EQ(case2.to_string(), "|0.200000|\n");
 }
 
-void test_deep_copy()
+TEST(Matrix, DeepCopy)
 {
     Matrix<int> src(3, 3);
     Matrix<int> dst(src);
@@ -50,7 +50,7 @@ void test_deep_copy()
     ASSERT_EQ(dst.to_string(), "|0 0 0|\n|0 0 0|\n|0 0 100|\n");
 }
 
-void test_move()
+TEST(Matrix, Move)
 {
     Matrix<int> src(2, 2);
     src[0][0] = 1;
@@ -69,7 +69,7 @@ void test_move()
     ASSERT_EQ(dst.to_string(), "|1 2|\n|3 4|\n");
 }
 
-void test_range_based_loop()
+TEST(Matrix, RangeBasedLoop)
 {
     Matrix<int> matrix(2, 2);
     matrix[0][0] = 1;
@@ -94,7 +94,7 @@ void test_range_based_loop()
     }
 }
 
-void test_sum()
+TEST(Matrix, Sum)
 {
     Matrix<int> left(2, 2);
     left[0][0] = 1;
@@ -117,7 +117,7 @@ void test_sum()
     ASSERT_EQ(right.to_string(), "|5 6|\n|7 8|\n");
 }
 
-void test_sum_on_wrong_dimensions()
+TEST(Matrix, SumOnWrongDimensions)
 {
     Matrix<int> left1(2, 2);
     Matrix<int> right1(3, 4);
@@ -132,7 +132,7 @@ void test_sum_on_wrong_dimensions()
     EXPECT_THROW(left3 + right3, DimensionsDontMatch);
 }
 
-void test_concat()
+TEST(Matrix, Concat)
 {
     Matrix<int> left(2, 2);
     left[0][0] = 1;
@@ -155,24 +155,9 @@ void test_concat()
     ASSERT_EQ(right.to_string(), "|5 6|\n|7 8|\n");
 }
 
-void test_concat_on_wrong_dimensions()
+TEST(Matrix, ConcatOnWrongDimensions)
 {
     Matrix<int> left(2, 2);
     Matrix<int> right(3, 4);
     EXPECT_THROW(left | right, DimensionsDontMatch);
-}
-
-int main()
-{
-    test_creation();
-    test_get_set();
-    test_deep_copy();
-    test_move();
-    test_range_based_loop();
-    test_sum();
-    test_sum_on_wrong_dimensions();
-    test_concat();
-    test_concat_on_wrong_dimensions();
-
-    return 0;
 }
