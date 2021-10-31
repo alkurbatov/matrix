@@ -12,6 +12,8 @@
 template <typename T>
 struct Row
 {
+    Row() = delete;
+
     Row(unsigned row_num_, unsigned cols_, std::vector<T>& data_):
         m_row_num(row_num_), m_cols(cols_), m_data(data_)
     {}
@@ -27,16 +29,17 @@ struct Row
     }
 
 private:
-    Row();
-
     unsigned m_row_num;
     unsigned m_cols;
+
     std::vector<T>& m_data;
 };
 
 template <typename T>
 struct Matrix
 {
+    Matrix() = delete;
+
     Matrix(unsigned rows_, unsigned cols_):
         m_rows(rows_), m_cols(cols_), m_data(rows_ * cols_, 0)
     {}
@@ -132,8 +135,6 @@ struct Matrix
     }
 
 private:
-    Matrix();
-
     unsigned m_rows;
     unsigned m_cols;
 
